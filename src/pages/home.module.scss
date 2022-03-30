@@ -1,1 +1,47 @@
-// TODO
+
+.contentContainer {
+    width: 700px;
+    display: block;
+    align-items: center;
+    margin:0 auto;
+    a {
+        margin-top: 3rem;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    p {
+        font-size: 1.125rem;
+        margin-top: 0.60rem;
+        margin-bottom: 1.75rem;
+    }
+
+    span, time {
+        font-size: 1.125rem;
+        margin-top: 1.5rem;
+        padding: 0.5rem;
+        
+    }
+    
+}
+
+.postsContainer{
+    display: block; 
+}
+
+
+.buttonContainer {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin:  0;
+    display: block;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    border: none;
+    background: transparent;
+    font-weight: 600;
+    color:#FF57B2
+}
+
