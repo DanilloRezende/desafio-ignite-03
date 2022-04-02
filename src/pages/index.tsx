@@ -7,11 +7,13 @@ import { FiCalendar,  FiUser } from 'react-icons/fi';
 import Prismic from "@prismicio/client"
 import { getPrismicClient } from '../services/prismic';
 
+import  Link  from "next/link"
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import { Link, RichText } from 'prismic-dom';
+import {  RichText } from 'prismic-dom';
 import Header from '../components/Header';
 import { useState } from 'react';
+import {ptBR} from 'date-fns/locale';
 
 interface Post {
   uid?: string;
@@ -35,13 +37,31 @@ interface HomeProps {
 
 export default function Home({ postsPagination }: HomeProps) {
 
- 
-  const [posts, setPosts] = useState<Post[]>(postsPagination.results)
+  //----Devido a ao teste que na linha 136 exige um retorno de texto...
+  //----foi necessário formatar a data 
+  const formatedData = postsPagination.results.map(post => {
+    return {
+      ...post,
+      first_publication_date: format(
+        new Date(post.first_publication_date), 
+        'dd MMM yyyy',
+        {
+          locale: ptBR,
+        }
+        )
+        
+    }});
+    
+    
+  const [posts, setPosts] = useState<Post[]>(formatedData)
   const [nextPage, setNextPage] = useState(postsPagination.next_page);
   const [currentPage, setCurrentPage] = useState(1);
-
+  
+  
   
 
+  
+      
   async function handleNextPage(): Promise<void> {
     if (currentPage !== 1 && nextPage === null) {
       return;
@@ -78,12 +98,12 @@ export default function Home({ postsPagination }: HomeProps) {
 
       <main className={styles.contentContainer}>    
           {posts.map((post) => (
-
-            <a  
-              className={styles.postsContainer}
-              href={`/posts/${post.uid}`}
-              key={post.uid} >
-              
+            <Link 
+              href={`/post/${post.uid}`}
+              key={post.uid}
+            >
+            <a className={styles.postsContainer}>           
+                             
               <h1>{post.data.title}</h1>
               <p>{post.data.subtitle}</p>
               <div className={styles.infoContainer}>
@@ -94,7 +114,7 @@ export default function Home({ postsPagination }: HomeProps) {
               </div>
               
             </a>
-
+            </Link>
           ))}
         {nextPage && (
         <button 
@@ -127,7 +147,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts = await postsResponse.results.map((post) => {
     return {
       uid: post.uid,
-      first_publication_date: format(new Date(post.first_publication_date), 'dd MMM yyyy'),
+      first_publication_date: post.first_publication_date,
       data: {
         title: post.data.title,
         subtitle: post.data.subtitle,

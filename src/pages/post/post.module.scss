@@ -1,1 +1,50 @@
-// TODO
+
+.banner {
+    width: 100%;
+    height: 25rem;
+    margin: 0 auto;
+    
+}
+
+.containerContentPost {
+    max-width: 1020px;
+    margin: 0 auto;
+    display: block;
+
+    h1 {
+        font-weight: 700;
+        font-size: 3rem;
+        color: var(--Heading);
+        padding-left: 1.5rem;
+    }
+
+    ul {
+        display:flex;
+        // padding: 1rem;
+        list-style: none;
+        color: var(--Info);
+        
+        
+    }
+
+    li {
+        padding-left: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    p {
+        font-weight: 400;
+        font-size: 0.875rem;
+        font-style: italic;
+        margin-top: 0.5rem;
+        padding-left: 1.5rem;
+    }
+
+    article {
+        padding-left: 1.5rem;
+        margin-top: 2.5rem;
+
+    }
+
+    
+}
